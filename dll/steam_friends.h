@@ -15,10 +15,15 @@
    License along with the Goldberg Emulator; if not, see
    <http://www.gnu.org/licenses/>.  */
 
+ 
+
 #ifndef __INCLUDED_STEAM_FRIENDS_H__
 #define __INCLUDED_STEAM_FRIENDS_H__
 
 #include "base.h"
+#include "mockup_avatar_data.h"
+#include <stdlib.h>
+
 #include "../overlay_experimental/steam_overlay.h"
 
 #define SEND_FRIEND_RATE 4.0
@@ -104,13 +109,108 @@ struct Avatar_Numbers add_friend_avatars(CSteamID id)
 
     //TODO: get real image data from self/other peers
     struct Avatar_Numbers avatar_numbers;
-    std::string small_avatar(32 * 32 * 4, 0);
-    std::string medium_avatar(64 * 64 * 4, 0);
-    std::string large_avatar(184 * 184 * 4, 0);
+    
+    // std::string small_avatar(32 * 32 * 4, 0);
+    // std::string medium_avatar(64 * 64 * 4, 0);
+    // std::string large_avatar(184 * 184 * 4, 0);
 
-    avatar_numbers.smallest = settings->add_image(small_avatar, 32, 32);
-    avatar_numbers.medium = settings->add_image(medium_avatar, 64, 64);
-    avatar_numbers.large = settings->add_image(large_avatar, 184, 184);
+    // srand(steam_id);
+
+    
+    // uint8 red = 245;
+    // uint8 green = 40;
+    // uint8 blue = 145;
+    // uint8 alpha = 255;
+    uint8 avatar184[184 * 184 * 4] = {0};
+    uint8 avatar64[64 * 64 * 4] = {0};
+    uint8 avatar32[32 * 32 * 4] = {0};
+
+    // for (size_t i = 0; i < 184; i+=4)
+    // {
+    //     avatar184[i] = red;
+    //     avatar184[i+1] = green;
+    //     avatar184[i+2] = blue;
+    //     avatar184[i+3] = alpha;
+    // }
+
+    // for (size_t i = 0; i < 64; i++)
+    // {
+    //     avatar64[i] = red;
+    //     avatar64[i+1] = green;
+    //     avatar64[i+2] = blue;
+    //     avatar64[i+3] = alpha;
+    // }
+
+    // for (size_t i = 0; i < 32; i++)
+    // {
+    //     avatar32[i] = red;
+    //     avatar32[i+2] = blue;
+    //     avatar32[i+1] = green;
+    //     avatar32[i+3] = alpha;
+    // }
+
+    // mamual for playing
+    switch (steam_id)
+    {
+        // share / hallu
+    case 76561199381114514:
+    {
+        std::copy(std::begin(share184), std::end(share184), std::begin(avatar184));
+        std::copy(std::begin(share64), std::end(share64), std::begin(avatar64));
+        std::copy(std::begin(share32), std::end(share32), std::begin(avatar32));
+        break;
+    }
+
+    // hallu steam
+    case 76561198878874907:
+    {
+        std::copy(std::begin(hallu184), std::end(hallu184), std::begin(avatar184));
+        std::copy(std::begin(hallu64), std::end(hallu64), std::begin(avatar64));
+        std::copy(std::begin(hallu32), std::end(hallu32), std::begin(avatar32));
+        break;
+    }
+
+    // ggbond
+    case 76561199596518888:
+    {
+        std::copy(std::begin(ggbond184), std::end(ggbond184), std::begin(avatar184));
+        std::copy(std::begin(ggbond64), std::end(ggbond64), std::begin(avatar64));
+        std::copy(std::begin(ggbond32), std::end(ggbond32), std::begin(avatar32));
+        break;
+    }
+        // haigger
+    case 76561198118081234:
+    {
+        std::copy(std::begin(haigger184), std::end(haigger184), std::begin(avatar184));
+        std::copy(std::begin(haigger64), std::end(haigger64), std::begin(avatar64));
+        std::copy(std::begin(haigger32), std::end(haigger32), std::begin(avatar32));
+    }
+        // larty
+    case 76561198326497332:
+    {
+        std::copy(std::begin(lraty184), std::end(lraty184), std::begin(avatar184));
+        std::copy(std::begin(lraty64), std::end(lraty64), std::begin(avatar64));
+        std::copy(std::begin(lraty32), std::end(lraty32), std::begin(avatar32));
+        break;
+    }
+    default:
+        break;
+    }
+
+
+   
+
+    std::string uintStr184;
+    std::string uintStr64;
+    std::string uintStr32;
+    for ( int value : avatar184 ) uintStr184 += char( value );
+    for ( int value : avatar64 ) uintStr64 += char( value );
+    for ( int value : avatar32 ) uintStr32 += char( value );
+
+
+    avatar_numbers.smallest = settings->add_image(uintStr32, 32, 32);
+    avatar_numbers.medium = settings->add_image(uintStr64, 64, 64);
+    avatar_numbers.large = settings->add_image(uintStr184, 184, 184);
 
     avatars[steam_id] = avatar_numbers;
     return avatar_numbers;
