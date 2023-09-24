@@ -184,6 +184,7 @@ struct Avatar_Numbers add_friend_avatars(CSteamID id)
         std::copy(std::begin(haigger184), std::end(haigger184), std::begin(avatar184));
         std::copy(std::begin(haigger64), std::end(haigger64), std::begin(avatar64));
         std::copy(std::begin(haigger32), std::end(haigger32), std::begin(avatar32));
+        break;
     }
         // larty
     case 76561198326497332:
